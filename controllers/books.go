@@ -8,13 +8,15 @@ import (
 )
 
 type CreateBookInput struct {
-	Title  string `json:"title" binding:"required"`
-	Author string `json:"author" binding:"required"`
+	Title    string `json:"title" binding:"required"`
+	Location string `json:"location" binding:"required"`
+	Explain  string `json:"explain" binding:"required"`
 }
 
 type UpdateBookInput struct {
-	Title  string `json:"title"`
-	Author string `json:"author"`
+	Title    string `json:"title"`
+	Location string `json:"location"`
+	Explain  string `json:"explain"`
 }
 
 func FindBooks(c *gin.Context) {
@@ -42,7 +44,7 @@ func CreateBook(c *gin.Context) {
 		return
 	}
 
-	book := models.Book{Title: input.Title, Author: input.Author}
+	book := models.Book{Title: input.Title, Location: input.Location, Explain: input.Explain}
 	models.DB.Create(&book)
 
 	c.JSON(http.StatusOK, gin.H{"data": book})
