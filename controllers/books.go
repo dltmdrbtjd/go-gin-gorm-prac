@@ -63,7 +63,7 @@ func UpdateBook(c *gin.Context) {
 		return
 	}
 
-	models.DB.Model(&book).Updates(input)
+	models.DB.Model(&book).Updates(map[string]interface{}{"title": input.Title, "explain": input.Explain, "location": input.Location})
 
 	c.JSON(http.StatusOK, gin.H{"data": book})
 }
